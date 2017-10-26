@@ -1,3 +1,24 @@
 # Integer Programming Sudoku Solver
 
-A sudoku solver using integer programming with the [PuLP](https://pypi.python.org/pypi/PuLP) library.
+An integer programming sudoku solver in python using the [PuLP](https://pypi.python.org/pypi/PuLP) library.
+
+## How to use
+
+### Prerequisites
+
+To run this script, you need [python 3](https://www.python.org/downloads/).
+You also need to install PuLP, either with `pip install pulp` from anywhere on your computer or `pip install -r requirements.txt` from the repository.
+
+### Usage
+
+```
+python solver.py [-h] [-o output] input
+
+positional arguments:
+  input                 path to the input file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o output, --output output
+                        path to the output file
+```

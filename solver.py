@@ -27,7 +27,7 @@ def create_starting_numbers(path):
 
 def solve(starting_numbers):
     """
-    Solves a sudoku problem given its starting numbers and returns found solution
+    Solves a sudoku problem given its starting numbers and returns found solution.
     @param starting_numbers: The starting numbers of the sudoku problem
     @return A two-dimensional list that contains the solution, or None if there is no solution
     """
