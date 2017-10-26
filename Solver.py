@@ -32,6 +32,8 @@ def solve(starting_numbers):
     
     sudoku_problem = LpProblem("Sudoku", LpMinimize)
     
+    values = [i for i in range(1, 10)]
+    
     #Creates a list of boxes, each box being a list of tuples, the coordinates of the cells it contains
     boxes = []
     for i in range(3):
@@ -43,29 +45,28 @@ def solve(starting_numbers):
             boxes.append(box)
     
     #Creates the 729 variables
-    variables = LpVariable.dict("Variables", (range(1, 10), range(1, 10), range(1, 10)), 0, 1, LpInteger)
+    variables = LpVariable.dict("Variables", (values, values, values), 0, 1, LpInteger)
     
     #Objective function
-    sudoku_problem += lpSum(variables[(column, row, possibility)] for column in range(1, 10) for row in range(1, 10) for possibility in range(1, 10)), "Objective function"
+    sudoku_problem += lpSum(variables[(column, row, possibility)] for column in values for row in values for possibility in values), "Objective function"
     
     #Constraints to have only one possibility per cell
-    for column in range(1, 10):
-        for row in range(1, 10):
-            sudoku_problem += lpSum([variables[(column, row, possibility)] for possibility in range(1, 10)]) == 1, ""
+    for column in values:
+        for row in values:
+            sudoku_problem += lpSum([variables[(column, row, possibility)] for possibility in values]) == 1, ""
     
-    #Constraints to have only one of each possibility in each column
-    for row in range(1, 10):
-        for possibility in range(1, 10):
-            sudoku_problem += lpSum([variables[(column, row, possibility)] for column in range(1, 10)]) == 1, ""
+    
+    for possibility in values:
+        #Constraints to have only one of each possibility in each column
+        for row in values:
+            sudoku_problem += lpSum([variables[(column, row, possibility)] for column in values]) == 1, ""
             
-    #Constraints to have only one of each possibility in each row
-    for column in range(1, 10):
-        for possibility in range(1, 10):
-            sudoku_problem += lpSum([variables[(column, row, possibility)] for row in range(1, 10)]) == 1, ""
+        #Constraints to have only one of each possibility in each row
+        for column in values:
+            sudoku_problem += lpSum([variables[(column, row, possibility)] for row in values]) == 1, ""
             
-    #Constraint to have only one of each possibility in each box
-    for box in boxes:
-        for possibility in range(1, 10):
+        #Constraint to have only one of each possibility in each box
+        for box in boxes:
             sudoku_problem += lpSum([variables[(column, row, possibility)] for (row, column) in box]) == 1, ""
     
     #Adds all starting numbers constraints
@@ -82,13 +83,17 @@ def solve(starting_numbers):
         print("No solution found.")
     
     #Displays the solution
-    for row in range(1, 10):
+    for row in values:
         line = ""
-        for column in range(1, 10):
-            for possibility in range(1, 10):
+        for column in values:
+            for possibility in values:
                 if value(variables[(column, row, possibility)]) == 1:
                     line += str(possibility)
+            if column in (3, 6):
+                line += "|"
         print(line)
+        if row in (3, 6):
+            print("---+---+---")
             
     
     
