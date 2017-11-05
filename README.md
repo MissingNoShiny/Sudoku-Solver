@@ -9,6 +9,10 @@ An integer programming sudoku solver in python using the [PuLP](https://pypi.pyt
 To run this script, you need [python 3](https://www.python.org/downloads/).
 You also need to install PuLP, either with `pip install pulp` from anywhere on your computer or `pip install -r requirements.txt` from the repository.
 
+### Input Format
+
+A text file of exactly 9 lines containing exactly 9 characters, either a digit corresponding to a starting clue or any other character corresponding to an empty space. See the `.sdk` files if you want examples.
+
 ### Usage
 
 ```
